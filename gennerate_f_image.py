@@ -157,7 +157,7 @@ if __name__ == "__main__":
     g_ema.eval()
     g_ema = g_ema.to(device)
 
-    g_toonify = Generator(args.size, 512, 8, channel_multiplier=2).to(device)
+    g_toonify = Generator(args.size, 512, 8).to(device)
     toonify_checkpoint = torch.load(args.toonify_ckpt)
 
     with torch.no_grad():
@@ -232,7 +232,7 @@ if __name__ == "__main__":
             )
         )
 
-    img_gen, _ = g_toonify([latent_path[-1]], input_is_latent=True, randomize_noise=False)
+    img_gen, _ = g_toonify([latent_path[-1]], input_is_latent=True, noise=noises)
 
     filename = os.path.splitext(os.path.basename(args.files[0]))[0] + ".pt"
 
