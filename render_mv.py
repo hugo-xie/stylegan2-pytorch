@@ -11,6 +11,6 @@ for img in img_paths[:4]:
     command = "python gennerate_f_image.py  --ckpt stylegan2-ffhq-config-f.pt --size 1024  {:s}".format(img)
     tem = os.popen(command)
     while flag:
-        file_name = os.path.join("./video", os.path.splitext(os.path.basename(img))[0] + "-project.png")
+        file_name = os.path.join("/home/xieyu/project/stylegan2-pytorch/video", os.path.splitext(os.path.basename(img))[0] + "-project.png")
         if os.path.exists(file_name):
             flag = False
