@@ -151,6 +151,7 @@ if __name__ == "__main__":
 
     g_ema = Generator(args.size, 512, 8)
     g_ema.load_state_dict(torch.load(args.ckpt)["g_ema"], strict=False)
+    g_ema = torch.nn.DataParallel(g_ema)
     g_ema.eval()
     g_ema = g_ema.to(device)
 
