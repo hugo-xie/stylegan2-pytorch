@@ -74,7 +74,7 @@ def make_image(tensor):
 
 
 if __name__ == "__main__":
-    device = "cpu"
+    device = "cuda"
 
     parser = argparse.ArgumentParser(
         description="Image projector to the generator latent spaces"
