@@ -6,11 +6,11 @@ resize = 256
 img_paths = glob(os.path.join("/home/xieyu/dataset/video", "*.jpg"))
 
 for img in img_paths[:4]:
-    print(img)
+    file_name = "/home/xieyu/project/stylegan2-pytorch/video/"+os.path.splitext(os.path.basename(img))[0] + "-project.png"
+    print(file_name)
     flag = True
     command = "python gennerate_f_image.py  --ckpt stylegan2-ffhq-config-f.pt --size 1024  {:s}".format(img)
     tem = os.popen(command)
     while flag:
-        file_name = os.path.join("/home/xieyu/project/stylegan2-pytorch/video", os.path.splitext(os.path.basename(img))[0] + "-project.png")
         if os.path.exists(file_name):
             flag = False
