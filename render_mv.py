@@ -5,7 +5,7 @@ resize = 256
 
 img_paths = glob(os.path.join("./sample", "*.png"))
 
-for img in img_paths:
+for img in img_paths[:4]:
     flag = True
     command = "python gennerate_f_image.py  --ckpt stylegan2-ffhq-config-f.pt --size 1024  {:s}".format(img)
     while flag:
