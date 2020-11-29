@@ -6,7 +6,7 @@ from model import Generator
 from tqdm import tqdm
 
 
-def generate(args, g_ema, device, mean_latent):
+def generate(args, g_ema,g_toonify, device, mean_latent):
 
     with torch.no_grad():
         g_ema.eval()
@@ -14,6 +14,10 @@ def generate(args, g_ema, device, mean_latent):
             sample_z = torch.randn(args.sample, args.latent, device=device)
 
             sample, _ = g_ema(
+                [sample_z], truncation=args.truncation, truncation_latent=mean_latent
+            )
+
+            toonify_sample, _ = g_toonify(
                 [sample_z], truncation=args.truncation, truncation_latent=mean_latent
             )
 
@@ -25,6 +29,13 @@ def generate(args, g_ema, device, mean_latent):
                 range=(-1, 1),
             )
 
+            utils.save_image(
+                toonify_sample,
+                f"sample/toonify/{str(i).zfill(6)}.png",
+                nrow=1,
+                normalize=True,
+                range=(-1, 1),
+            )
 
 if __name__ == "__main__":
     device = "cuda"
@@ -57,6 +68,12 @@ if __name__ == "__main__":
         help="path to the model checkpoint",
     )
     parser.add_argument(
+        "--toonify_ckpt",
+        type=str,
+        default="ffhq-cartoon-blended-64.pt",
+        help="toonify model checkpoint",
+    )
+    parser.add_argument(
         "--channel_multiplier",
         type=int,
         default=2,
@@ -73,7 +90,13 @@ if __name__ == "__main__":
     ).to(device)
     checkpoint = torch.load(args.ckpt)
 
+    g_toonify = Generator(
+        args.size, args.latent, args.n_mlp, channel_multiplier=args.channel_multiplier
+    ).to(device)
+    toonify_checkpoint = torch.load(args.toonify_ckpt)
+
     g_ema.load_state_dict(checkpoint["g_ema"])
+    g_toonify.load_state_dict(toonify_checkpoint["g_ema"])
 
     if args.truncation < 1:
         with torch.no_grad():
@@ -81,4 +104,4 @@ if __name__ == "__main__":
     else:
         mean_latent = None
 
-    generate(args, g_ema, device, mean_latent)
+    generate(args, g_ema, g_toonify, device, mean_latent)
