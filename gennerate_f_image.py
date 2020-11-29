@@ -254,4 +254,4 @@ if __name__ == "__main__":
         pil_img = Image.fromarray(img_ar[i])
         pil_img.save(img_name)
 
-    torch.save(result_file, filename)
+    #torch.save(result_file, filename)
