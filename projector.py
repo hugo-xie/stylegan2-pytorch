@@ -141,7 +141,7 @@ if __name__ == "__main__":
 
     imgs = []
     img_paths = glob(os.path.join(args.files[0], "*.jpg"))
-    for imgfile in img_paths:
+    for imgfile in img_paths[:20]:
         img = transform(Image.open(imgfile).convert("RGB"))
         imgs.append(img)
 
@@ -235,7 +235,7 @@ if __name__ == "__main__":
     img_ar = make_image(img_gen)
 
     result_file = {}
-    for i, input_name in enumerate(args.files):
+    for i, input_name in enumerate(args.files[0]):
         noise_single = []
         for noise in noises:
             noise_single.append(noise[i : i + 1])
