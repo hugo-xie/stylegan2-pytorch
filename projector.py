@@ -146,7 +146,7 @@ if __name__ == "__main__":
         imgs.append(img)
 
     imgs = torch.stack(imgs, 0).to(device)
-    filename = args.files.split('/')[-1] + ".pt"
+    filename = args.files[0].split('/')[-1] + ".pt"
     print(filename)
 
     g_ema = Generator(args.size, 512, 8)
