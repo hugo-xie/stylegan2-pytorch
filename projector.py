@@ -11,6 +11,7 @@ from tqdm import tqdm
 
 import lpips
 from model import Generator
+from glob import glob
 
 
 def noise_regularize(noises):
@@ -139,12 +140,14 @@ if __name__ == "__main__":
     )
 
     imgs = []
-
-    for imgfile in args.files:
+    img_paths = glob(os.path.join(args.files, "*.jpg"))
+    for imgfile in img_paths:
         img = transform(Image.open(imgfile).convert("RGB"))
         imgs.append(img)
 
     imgs = torch.stack(imgs, 0).to(device)
+    filename = args.files.split('/')[-1] + ".pt"
+    print(filename)
 
     g_ema = Generator(args.size, 512, 8)
     g_ema.load_state_dict(torch.load(args.ckpt)["g_ema"], strict=False)
@@ -225,7 +228,8 @@ if __name__ == "__main__":
 
     img_gen, _ = g_ema([latent_path[-1]], input_is_latent=True, noise=noises)
 
-    filename = os.path.splitext(os.path.basename(args.files[0]))[0] + ".pt"
+    #filename = os.path.splitext(os.path.basename(args.files[0]))[0] + ".pt"
+    filename = args.files.split('/')[-1] + ".pt"
 
     img_ar = make_image(img_gen)
 
