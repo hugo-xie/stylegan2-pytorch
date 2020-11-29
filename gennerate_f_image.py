@@ -159,6 +159,9 @@ if __name__ == "__main__":
 
     g_toonify = Generator(args.size, 512, 8).to(device)
     toonify_checkpoint = torch.load(args.toonify_ckpt)
+    g_toonify.load_state_dict(toonify_checkpoint["g_ema"])
+    g_toonify.eval()
+    g_toonify = g_toonify.to(device)
 
     with torch.no_grad():
         noise_sample = torch.randn(n_mean_latent, 512, device=device)
