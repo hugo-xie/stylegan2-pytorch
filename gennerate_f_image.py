@@ -232,7 +232,7 @@ if __name__ == "__main__":
             )
         )
 
-    img_gen, _ = g_toonify([latent_path[-1]], input_is_latent=True, noise=noises)
+    img_gen, _ = g_ema([latent_path[-1]], input_is_latent=True, noise=noises)
 
     filename = os.path.splitext(os.path.basename(args.files[0]))[0] + ".pt"
 
