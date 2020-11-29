@@ -253,7 +253,7 @@ if __name__ == "__main__":
             "noise": noise_single,
         }
 
-        img_name = os.path.splitext(os.path.basename(input_name))[0] + "-project.png"
+        img_name = os.path.join("./video", os.path.splitext(os.path.basename(img))[0] + "-project.png")
         pil_img = Image.fromarray(img_ar[i])
         pil_img.save(img_name)
 
