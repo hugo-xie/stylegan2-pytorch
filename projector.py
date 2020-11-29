@@ -141,7 +141,7 @@ if __name__ == "__main__":
 
     imgs = []
     img_paths = glob(os.path.join(args.files[0], "*.jpg"))
-    for imgfile in img_paths[:20]:
+    for imgfile in img_paths[:4]:
         img = transform(Image.open(imgfile).convert("RGB"))
         imgs.append(img)
 
