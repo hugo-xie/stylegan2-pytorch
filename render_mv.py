@@ -3,7 +3,7 @@ import os
 
 resize = 256
 
-img_paths = glob(os.path.join("/home/xieyu/project/aligned/face", "*.png"))
+img_paths = glob(os.path.join("/home/xieyu/project/face", "*.png"))
 
 for img in img_paths[:4]:
     file_name = "/home/xieyu/project/stylegan2-pytorch/video/"+os.path.splitext(os.path.basename(img))[0] + "-project.png"
