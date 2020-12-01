@@ -96,7 +96,7 @@ if __name__ == "__main__":
         default=0.25,
         help="duration of the learning rate decay",
     )
-    parser.add_argument("--lr", type=float, default=0.1, help="learning rate")
+    parser.add_argument("--lr", type=float, default=0.15, help="learning rate")
     parser.add_argument(
         "--noise", type=float, default=0.05, help="strength of the noise level"
     )
