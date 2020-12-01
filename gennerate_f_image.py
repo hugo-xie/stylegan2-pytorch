@@ -106,7 +106,7 @@ if __name__ == "__main__":
         default=0.75,
         help="duration of the noise level decay",
     )
-    parser.add_argument("--step", type=int, default=1000, help="optimize iterations")
+    parser.add_argument("--step", type=int, default=2000, help="optimize iterations")
     parser.add_argument(
         "--noise_regularize",
         type=float,
